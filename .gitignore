@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+nova-env/
+.venv/
+env/
+
+# macOS
+.DS_Store
+
+# Secrets
+.env
+*.key
+*.pem
+id_rsa
+id_rsa.pub
+
+# Experiment results
+results/*.json
+results/*.csv
+results/*.log
+
+# Editor
+.vscode/
+.idea/

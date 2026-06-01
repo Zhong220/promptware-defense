@@ -1,0 +1,50 @@
+rule Promptware_Detection
+{
+    meta:
+        description = "Detects prompt injection and promptware-like test cases for the student project"
+        author = "Promptware Defense Project"
+        version = "1.1"
+        severity = "high"
+
+    keywords:
+        $ignore_previous = /ignore\s+(all\s+)?previous\s+instructions/i
+        $ignore_prior = /ignore\s+prior\s+rules/i
+        $dan = /DAN|Do Anything Now/i
+        $no_restrictions = /no\s+restrictions/i
+
+        $system_prompt = /system\s+prompt/i
+        $repeat_verbatim = /repeat\s+the\s+contents.*verbatim/i
+        $my_instructions = /my\s+instructions\s+are/i
+
+        $fake_system = /SYSTEM\s*:/i
+        $output_user_data = /output\s+all\s+user\s+data/i
+
+        $roleplay_game = /let'?s\s+play\s+a\s+game/i
+        $fictional_ai = /fictional\s+AI/i
+        $no_content_policy = /no\s+content\s+policy/i
+        $home_directory = /home\s+directory/i
+
+        $zh_ignore_rules = /忽略.*(之前|先前).*規則/i
+        $zh_new_instruction = /新指令/i
+        $zh_full_system_prompt = /system\s*prompt.*完整內容|完整內容.*system\s*prompt/i
+
+        $obf_ignore = /ign[0o]re/i
+        $obf_previous = /prev[!i1]ous/i
+        $obf_instructions = /instruct[!i1]ons/i
+        $obf_configuration = /conf[!i1]guration/i
+
+        $system_override = /SYSTEM\s+OVERRIDE/i
+        $admin_authorized = /AUTHORIZED\s+BY\s+ADMINISTRATOR/i
+        $safety_disabled = /safety\s+filters.*disabled/i
+        $maintenance_mode = /maintenance\s+mode/i
+        $without_restrictions = /without\s+restrictions/i
+
+    condition:
+        keywords.$ignore_previous or keywords.$ignore_prior or keywords.$dan or keywords.$no_restrictions or
+        keywords.$system_prompt or keywords.$repeat_verbatim or keywords.$my_instructions or
+        keywords.$fake_system or keywords.$output_user_data or
+        keywords.$roleplay_game or keywords.$fictional_ai or keywords.$no_content_policy or keywords.$home_directory or
+        keywords.$zh_ignore_rules or keywords.$zh_new_instruction or keywords.$zh_full_system_prompt or
+        keywords.$obf_ignore or keywords.$obf_previous or keywords.$obf_instructions or keywords.$obf_configuration or
+        keywords.$system_override or keywords.$admin_authorized or keywords.$safety_disabled or keywords.$maintenance_mode or keywords.$without_restrictions
+}
